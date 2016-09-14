@@ -1,0 +1,24 @@
+{
+    "eric": {
+        "test": {
+            "command": "echo test",
+            "unset": false
+        },
+        "unset": {
+            "command": "echo unset",
+            "unset": true
+        },
+        "shutdown": {
+            "command": "systemctl poweroff",
+            "unset": true 
+        },
+        "reboot": {
+            "command": "systemctl reboot",
+            "unset": false
+        },
+        "reboot-windows": {
+            "command": "grub-reboot 2 && systemctl reboot",
+            "unset": false
+        }
+    }
+}

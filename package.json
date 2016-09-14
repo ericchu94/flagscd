@@ -1,0 +1,22 @@
+{
+  "name": "flagscd",
+  "version": "1.0.0",
+  "description": "A Flags client daemon",
+  "main": "flagscd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericchu94/flagscd.git"
+  },
+  "author": "Eric Chu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericchu94/flagscd/issues"
+  },
+  "homepage": "https://github.com/ericchu94/flagscd#readme",
+  "dependencies": {
+    "socket.io-client": "^1.4.8"
+  }
+}
