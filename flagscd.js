@@ -28,9 +28,11 @@ function handle(flag) {
     });
   }
 
-  child_process.execSync(f.command, {
-    stdio: [0, 1, 2],
-  });
+  if (f.command) {
+    child_process.execSync(f.command, {
+      stdio: [0, 1, 2],
+    });
+  }
 }
 
 socket.on('getFlag', handle);

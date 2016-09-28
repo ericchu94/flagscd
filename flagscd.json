@@ -19,6 +19,9 @@
         "reboot-windows": {
             "command": "grub-reboot 2 && systemctl reboot",
             "unset": false
+        },
+        "ericchu": {
+            "unset": false
         }
     }
 }
