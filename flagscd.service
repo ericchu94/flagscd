@@ -1,0 +1,10 @@
+[Unit]
+Description=A Flags client daemon
+
+[Service]
+ExecStart=/usr/bin/flagscd
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+
+[Install]
+WantedBy=network.target
