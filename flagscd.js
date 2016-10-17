@@ -14,6 +14,9 @@ function handle(flag) {
   if (!u)
     return;
 
+  if (!flag.flag)
+    return;
+
   const f = u[flag.flag.name];
   if (!f)
     return;
