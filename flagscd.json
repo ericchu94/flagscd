@@ -1,13 +1,5 @@
 {
     "eric": {
-        "test": {
-            "command": "echo test",
-            "unset": false
-        },
-        "unset": {
-            "command": "echo unset",
-            "unset": true
-        },
         "shutdown": {
             "command": "systemctl poweroff",
             "unset": true 
