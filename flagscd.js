@@ -43,11 +43,13 @@ socket.on('getFlag', handle);
 socket.on('setFlag', handle);
 socket.on('createFlag', handle);
 
-for (let user in config) {
-  for (let flag in config[user]) {
-    socket.emit('getFlag', {
-      userName: user,
-      flagName: flag,
-    });
+socket.on('connect', () => {
+  for (let user in config) {
+    for (let flag in config[user]) {
+      socket.emit('getFlag', {
+        userName: user,
+        flagName: flag,
+      });
+    }
   }
-}
+});
