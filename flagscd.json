@@ -1,8 +1,42 @@
 {
-    "test": {
-        "test": {
-	    "command": "echo test",
-            "unset": true
+    "default": {
+        "name": "name"
+    },
+    "servers": {
+        "http://localhost:3000/": {
+            "users": {
+                "test1": {
+                    "flags": {
+                        "test1": {
+                            "command": "echo test",
+                            "unset": true
+                        }
+                    }
+                },
+                "test2": {
+                    "flags": {
+                        "test2": {
+                            "command": "echo test2",
+                            "unset": true
+                        }
+                    }
+                }
+            }
+        },
+        "http://localhost:3001/": {
+            "users": {
+                "test": {
+                    "flags": {
+                        "test3": {
+                            "command": "echo test3",
+                            "unset": true
+                        },
+			"off": {
+                            "unset": true
+			}
+                    }
+                }
+            }
         }
     }
 }

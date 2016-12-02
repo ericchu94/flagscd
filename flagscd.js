@@ -6,19 +6,16 @@ const child_process = require('child_process');
 const io = require('socket.io-client');
 const fs = require('mz/fs');
 
-const socket = io('http://home.ericchu.net:3000/');
-
 let config = {};
 
-function handle(flag) {
-  const u = config[flag.user];
+function handle(flag, socket, u) {
   if (!u)
     return;
 
   if (!flag.flag)
     return;
 
-  const f = u[flag.flag.name];
+  const f = u['flags'][flag.flag.name];
   if (!f)
     return;
 
@@ -44,21 +41,27 @@ function main() {
   fs.readFile(process.argv[2] || '/etc/flagscd/flagscd.json', 'utf8').then(configJSON => {
     config = JSON.parse(configJSON);
   }).then(() => {
-    socket.on('getFlag', handle);
-    socket.on('setFlag', handle);
-    socket.on('createFlag', handle);
+    const defaultName = config['default']['name'];
+    for (let serverName in config['servers']) {
+      const server = config['servers'][serverName];
+      const name = server['name'] || defaultName;
+      const socket = io(serverName);
+      socket.on('getFlag', flag => handle(flag, socket, server['users'][flag.user]));
+      socket.on('setFlag', flag => handle(flag, socket, server['users'][flag.user]));
+      socket.on('createFlag', flag => handle(flag, socket, server['users'][flag.user]));
 
-    socket.on('connect', () => {
-      socket.emit('name', 'test');
-      for (let user in config) {
-        for (let flag in config[user]) {
-          socket.emit('getFlag', {
-            userName: user,
-            flagName: flag,
-          });
+      socket.on('connect', () => {
+        socket.emit('name', name);
+        for (let user in server['users']) {
+          for (let flag in server['users'][user]['flags']) {
+            socket.emit('getFlag', {
+              userName: user,
+              flagName: flag,
+            });
+          }
         }
-      }
-    });
+      });
+    }
   });
 }
 
