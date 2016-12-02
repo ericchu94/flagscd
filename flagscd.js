@@ -4,10 +4,11 @@ const process = require('process');
 const child_process = require('child_process');
 
 const io = require('socket.io-client');
+const fs = require('mz/fs');
 
 const socket = io('http://home.ericchu.net:3000/');
 
-const config = require(process.argv[2] || '/etc/flagscd/flagscd.json');
+let config = {};
 
 function handle(flag) {
   const u = config[flag.user];
@@ -39,17 +40,27 @@ function handle(flag) {
   }
 }
 
-socket.on('getFlag', handle);
-socket.on('setFlag', handle);
-socket.on('createFlag', handle);
+function main() {
+  fs.readFile(process.argv[2] || '/etc/flagscd/flagscd.json', 'utf8').then(configJSON => {
+    config = JSON.parse(configJSON);
+  }).then(() => {
+    socket.on('getFlag', handle);
+    socket.on('setFlag', handle);
+    socket.on('createFlag', handle);
 
-socket.on('connect', () => {
-  for (let user in config) {
-    for (let flag in config[user]) {
-      socket.emit('getFlag', {
-        userName: user,
-        flagName: flag,
-      });
-    }
-  }
-});
+    socket.on('connect', () => {
+      socket.emit('name', 'test');
+      for (let user in config) {
+        for (let flag in config[user]) {
+          socket.emit('getFlag', {
+            userName: user,
+            flagName: flag,
+          });
+        }
+      }
+    });
+  });
+}
+
+if (require.main === module)
+  main();
