@@ -23,7 +23,7 @@ package() {
   cd "$srcdir/${pkgname%-git}"
 
   mkdir -p "$pkgdir/opt/${pkgname%-git}"
-  cp -r flagscd.js package.json "$pkgdir/opt/${pkgname%-git}"
+  cp flagscd.js package.json yarn.lock "$pkgdir/opt/${pkgname%-git}"
 
   mkdir -p "$pkgdir/etc/${pkgname%-git}"
   cp flagscd.json "$pkgdir/etc/${pkgname%-git}/flagscd.json.example"
