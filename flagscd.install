@@ -1,0 +1,17 @@
+# arg 1:  the new package version
+post_install() {
+    useradd flagscd
+    post_upgrade
+}
+
+# arg 1:  the new package version
+# arg 2:  the old package version
+post_upgrade() {
+    cd /opt/flagscd && yarn || npm install
+}
+
+# arg 1:  the old package version
+pre_remove() {
+    rm -rf /opt/flagscd/node_modules
+    userdel flagscd
+}

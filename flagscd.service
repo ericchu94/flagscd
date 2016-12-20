@@ -3,8 +3,7 @@ Description=A Flags client daemon
 
 [Service]
 ExecStart=/usr/bin/flagscd
-ExecReload=/bin/kill -HUP $MAINPID
-Restart=always
+User=flagscd
 
 [Install]
 WantedBy=network.target
